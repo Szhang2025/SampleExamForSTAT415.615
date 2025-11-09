@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Introductory Data Mining Exam - Computational</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.7;
+      color: #333;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f8f9fc;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+      border-bottom: 2px solid #4361ee;
+      padding-bottom: 8px;
+    }
+    h1 { text-align: center; font-size: 2.2em; margin-bottom: 10px; }
+    h2 { font-size: 1.5em; margin-top: 40px; }
+    .header-info { text-align: center; font-size: 1.1em; color: #555; margin-bottom: 30px; }
+    .question {
+      background-color: #ffffff;
+      border-left: 6px solid #4361ee;
+      padding: 18px;
+      margin-bottom: 30px;
+      border-radius: 0 8px 8px 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .question p { margin: 12px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 0.95em;
+    }
+    th, td {
+      border: 1.5px solid #a0a0a0;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #4361ee;
+      color: white;
+      font-weight: 600;
+    }
+    .math {
+      font-family: 'Times New Roman', serif;
+      font-style: italic;
+      background-color: #f0f5ff;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .boxed {
+      border: 2px solid #333;
+      padding: 4px 10px;
+      display: inline-block;
+      background-color: #fff;
+      font-weight: bold;
+      border-radius: 4px;
+      margin: 5px 0;
+    }
+    .answer-key {
+      background-color: #e8f4f8;
+      border: 1px solid #4361ee;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 50px;
+      display: none;
+    }
+    .answer-key h2 { cursor: pointer; color: #4361ee; }
+    .answer-key.show { display: block; }
+    .toggle-btn {
+      background-color: #4361ee;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    .toggle-btn:hover { background-color: #3a56d4; }
+    .end { text-align: center; font-weight: bold; font-size: 1.3em; margin: 50px 0; color: #2c3e50; }
+    .latex {
+      font-family: 'KaTeX', 'Times New Roman', serif;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Introductory Data Mining Exam</h1>
+  <div class="header-info">
+    <strong>All Computational Questions</strong><br>
+    <em>Time: 120 minutes | Total: 100 points</em><br>
+    Show all work. Final answers must be <span class="boxed">boxed</span>. Calculators allowed.
+  </div>
+
+  <button class="toggle-btn" onclick="toggleAnswerKey()">Show Answer Key</button>
+
+  <!-- ==================== QUESTION 1 ==================== -->
+  <div class="question">
+    <h2>Question 1: Multiple Linear Regression (12 pts)</h2>
+    <p>You fit a multiple linear regression model:</p>
+    <p class="latex">\[\hat{y} = 3.2 + 1.4X_1 - 0.9X_2 + 0.6X_3\]</p>
+    <p><strong>a)</strong> (4 pts) Predict \(\hat{y}\) when \(X_1 = 2\), \(X_2 = 1\), \(X_3 = 0\).</p>
+    <p><strong>b)</strong> (4 pts) Interpret the coefficient of \(X_2\) in context.</p>
+    <p><strong>c)</strong> (4 pts) Suppose the residual for a point is \(e = y - \hat{y} = -1.5\). What is the actual \(y\) if \(\hat{y} = 10.3\)?</p>
+  </div>
+
+  <!-- ==================== QUESTION 2 ==================== -->
+  <div class="question">
+    <h2>Question 2: Logistic Regression (14 pts)</h2>
+    <p>Model:</p>
+    <p class="latex">\[\text{logit}(P(Y=1)) = -1.8 + 0.7X_1 - 1.2X_2\]</p>
+    <p><strong>a)</strong> (6 pts) Compute \(P(Y=1)\) when \(X_1 = 3\), \(X_2 = 1\). Use \(e \approx 2.718\).</p>
+    <p><strong>b)</strong> (4 pts) What are the <strong>odds</strong> of \(Y=1\) at this point?</p>
+    <p><strong>c)</strong> (4 pts) By what factor do the <strong>odds</strong> change if \(X_1\) increases by 1 (holding \(X_2\) fixed)?</p>
+  </div>
+
+  <!-- ==================== QUESTION 3 ==================== -->
+  <div class="question">
+    <h2>Question 3: Lasso vs OLS (10 pts)</h2>
+    <p>Coefficients from <strong>OLS</strong> and <strong>Lasso</strong>:</p>
+    <table>
+      <tr><th>Predictor</th><th>OLS Coef</th><th>Lasso Coef</th></tr>
+      <tr><td>\(X_1\)</td><td>0.45</td><td>0.42</td></tr>
+      <tr><td>\(X_2\)</td><td>0.03</td><td>0.00</td></tr>
+      <tr><td>\(X_3\)</td><td>−0.71</td><td>−0.68</td></tr>
+    </table>
+    <p><strong>a)</strong> (4 pts) Which variable was <strong>shrunk to zero</strong> by Lasso?</p>
+    <p><strong>b)</strong> (6 pts) If \(\lambda = 0.1\), compute the <strong>total L1 penalty</strong>:</p>
+    <p class="latex">\[\lambda \sum |\beta_j|\]</p>
+  </div>
+
+  <!-- ==================== QUESTION 4 ==================== -->
+  <div class="question">
+    <h2>Question 4: K-Nearest Neighbors (12 pts)</h2>
+    <p><strong>KNN (K=3)</strong> classification. Euclidean distances from test point:</p>
+    <table>
+      <tr><th>Point</th><th>Class</th><th>Distance</th></tr>
+      <tr><td>A</td><td>Red</td><td>1.0</td></tr>
+      <tr><td>B</td><td>Blue</td><td>1.5</td></tr>
+      <tr><td>C</td><td>Red</td><td>2.0</td></tr>
+      <tr><td>D</td><td>Blue</td><td>2.5</td></tr>
+      <tr><td>E</td><td>Red</td><td>3.0</td></tr>
+    </table>
+    <p><strong>a)</strong> (6 pts) List the <strong>3 nearest neighbors</strong> and their classes.</p>
+    <p><strong>b)</strong> (6 pts) Predict the class using <strong>majority vote</strong>.</p>
+  </div>
+
+  <!-- ==================== QUESTION 5 ==================== -->
+  <div class="question">
+    <h2>Question 5: K-Means Clustering (14 pts)</h2>
+    <p>Current centroids:</p>
+    <ul>
+      <li>Cluster 1: \((2, 3)\)</li>
+      <li>Cluster 2: \((8, 7)\)</li>
+    </ul>
+    <p>New point: \(P = (5, 4)\)</p>
+    <p><strong>a)</strong> (6 pts) Compute <strong>Euclidean distance</strong> from \(P\) to <strong>each centroid</strong>.</p>
+    <p><strong>b)</strong> (4 pts) Assign \(P\) to the closer cluster.</p>
+    <p><strong>c)</strong> (4 pts) After assigning \(P\), Cluster 1 now has: \((2,3)\), \((1,4)\), \((5,4)\). Compute the <strong>updated centroid</strong>.</p>
+  </div>
+
+  <!-- ==================== QUESTION 6 ==================== -->
+  <div class="question">
+    <h2>Question 6: Hierarchical Clustering (10 pts)</h2>
+    <p><strong>Single linkage</strong> distances:</p>
+    <table>
+      <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+      <tr><td><strong>A</strong></td><td>–</td><td>2</td><td>5</td></tr>
+      <tr><td><strong>B</strong></td><td>2</td><td>–</td><td>3</td></tr>
+      <tr><td><strong>C</strong></td><td>5</td><td>3</td><td>–</td></tr>
+    </table>
+    <p><strong>a)</strong> (6 pts) Which two clusters merge <strong>first</strong>? At what distance?</p>
+    <p><strong>b)</strong> (4 pts) After merging, compute distance from <strong>new cluster</strong> to the remaining one using <strong>single linkage</strong>.</p>
+  </div>
+
+  <!-- ==================== QUESTION 7 ==================== -->
+  <div class="question">
+    <h2>Question 7: CART – Gini Impurity (12 pts)</h2>
+    <p>A node has <strong>100 samples</strong>: 60 Class 0, 40 Class 1.</p>
+    <p><strong>a)</strong> (4 pts) Compute <strong>Gini impurity</strong> of parent:</p>
+    <p class="latex">\[\text{Gini} = 2p(1-p), \quad p = \frac{\text{Class 1}}{\text{Total}}\]</p>
+    <p><strong>b)</strong> (8 pts) After split:</p>
+    <ul>
+      <li><strong>Left</strong>: 50 Class 0, 10 Class 1</li>
+      <li><strong>Right</strong>: 10 Class 0, 30 Class 1</li>
+    </ul>
+    <p>Compute <strong>weighted Gini</strong> after split.</p>
+  </div>
+
+  <!-- ==================== QUESTION 8 ==================== -->
+  <div class="question">
+    <h2>Question 8: SVM (10 pts)</h2>
+    <p><strong>Hard-margin linear SVM</strong>:</p>
+    <ul>
+      <li>\(w = (1, -1)\)</li>
+      <li>\(b = -3\)</li>
+    </ul>
+    <p>Decision boundary: \(w_1 x_1 + w_2 x_2 + b = 0\)</p>
+    <p><strong>a)</strong> (6 pts) Classify point \((3, 3)\). Compute decision function value.</p>
+    <p><strong>b)</strong> (4 pts) Predicted label? (\(+1\) or \(-1\))</p>
+  </div>
+
+  <!-- ==================== QUESTION 9 ==================== -->
+  <div class="question">
+    <h2>Question 9: Neural Network – Forward Pass (16 pts)</h2>
+    <p>A <strong>single neuron</strong>:</p>
+    <ul>
+      <li>Inputs: \(x_1 = 2\), \(x_2 = -1\)</li>
+      <li>Weights: \(w_1 = 0.5\), \(w_2 = -1.2\)</li>
+      <li>Bias: \(b = 0.3\)</li>
+      <li>Activation: <strong>ReLU</strong> (\(\max(0, z)\))</li>
+    </ul>
+    <p><strong>a)</strong> (6 pts) Compute <strong>pre-activation</strong> \(z\).</p>
+    <p><strong>b)</strong> (4 pts) Output after <strong>ReLU</strong>.</p>
+    <p><strong>c)</strong> (6 pts) Feeds into <strong>sigmoid output neuron</strong>: weight \(w_o = 1.5\), bias \(b_o = -0.5\). Compute \(P(Y=1)\).</p>
+  </div>
+
+  <div class="end">End of Exam</div>
+
+  <!-- ==================== ANSWER KEY ==================== -->
+  <div id="answerKey" class="answer-key">
+    <h2 onclick="toggleAnswerKey()" style="cursor:pointer; margin-top:0;">Answer Key (Click to hide)</h2>
+    <p><strong>Q1:</strong><br>
+       a) \(\hat{y} = 3.2 + 1.4(2) - 0.9(1) + 0.6(0) = <span class="boxed">5.1</span>\)<br>
+       b) For one-unit increase in \(X_2\), \(\hat{y}\) decreases by 0.9<br>
+       c) \(y = 10.3 + (-1.5) = <span class="boxed">8.8</span>\)</p>
+
+    <p><strong>Q2:</strong><br>
+       a) logit = −1.1 → \(P = \frac{e^{-1.1}}{1+e^{-1.1}} \approx <span class="boxed">0.250</span>\)<br>
+       b) Odds = \(0.25 / 0.75 = <span class="boxed">0.333</span>\)<br>
+       c) \(e^{0.7} \approx 2.014\) → odds × <span class="boxed">2.014</span></p>
+
+    <p><strong>Q3:</strong><br>
+       a) <span class="boxed">\(X_2\)</span><br>
+       b) \(0.1 \times (0.42 + 0 + 0.68) = <span class="boxed">0.11</span>\)</p>
+
+    <p><strong>Q4:</strong><br>
+       a) A (Red), B (Blue), C (Red)<br>
+       b) 2 Red, 1 Blue → <span class="boxed">Red</span></p>
+
+    <p><strong>Q5:</strong><br>
+       a) To C1: \(\sqrt{10} \approx 3.16\), To C2: \(\sqrt{18} \approx 4.24\)<br>
+       b) <span class="boxed">Cluster 1</span><br>
+       c) \(\left( \frac{8}{3}, \frac{11}{3} \right) \approx <span class="boxed">(2.67, 3.67)</span>\)</p>
+
+    <p><strong>Q6:</strong><br>
+       a) A and B at <span class="boxed">2</span><br>
+       b) min(5,3) = <span class="boxed">3</span></p>
+
+    <p><strong>Q7:</strong><br>
+       a) \(p=0.4\) → Gini = \(2(0.4)(0.6) = <span class="boxed">0.48</span>\)<br>
+       b) Left Gini ≈ 0.278, Right = 0.375 → Weighted ≈ <span class="boxed">0.317</span></p>
+
+    <p><strong>Q8:</strong><br>
+       a) \(f(3,3) = 3 - 3 - 3 = -3\)<br>
+       b) \(f < 0\) → <span class="boxed">−1</span></p>
+
+    <p><strong>Q9:</strong><br>
+       a) \(z = 2.5\) → <span class="boxed">2.5</span><br>
+       b) ReLU(2.5) = <span class="boxed">2.5</span><br>
+       c) \(z_o = 3.25\) → \(P \approx <span class="boxed">0.963</span>\)</p>
+  </div>
+
+  <script>
+    function toggleAnswerKey() {
+      const key = document.getElementById("answerKey");
+      key.classList.toggle("show");
+      const btn = document.querySelector(".toggle-btn");
+      btn.textContent = key.classList.contains("show") ? "Hide Answer Key" : "Show Answer Key";
+    }
+  </script>
+
+
+<div class="header-info">
+    <strong>COMPLETE SOLUTIONS</strong><br>
+    <em>All Computational Questions • 100 points</em><br>
+    Step-by-step work shown • Final answers <span class="boxed">boxed</span>
+  </div>
+
+  <!-- ==================== QUESTION 1 ==================== -->
+  <div class="question">
+    <h2>Question 1: Multiple Linear Regression (12 pts)</h2>
+    <p><strong>Model:</strong></p>
+    <p class="latex">\[\hat{y} = 3.2 + 1.4X_1 - 0.9X_2 + 0.6X_3\]</p>
+
+    <h3>a) Predict \(\hat{y}\) when \(X_1 = 2\), \(X_2 = 1\), \(X_3 = 0\)</h3>
+    <div class="step">
+      \[
+      \hat{y} = 3.2 + 1.4(2) - 0.9(1) + 0.6(0) = 3.2 + 2.8 - 0.9 + 0 = 5.1
+      \]
+    </div>
+    <p><strong>Answer:</strong> <span class="boxed">5.1</span></p>
+
+    <h3>b) Interpret the coefficient of \(X_2\)</h3>
+    <p>The coefficient of \(X_2\) is <strong>−0.9</strong>.</p>
+    <div class="step">
+      <strong>Interpretation:</strong> For every one-unit increase in \(X_2\), the predicted \(y\) <strong>decreases by 0.9 units</strong>, holding \(X_1\) and \(X_3\) constant.
+    </div>
+
+    <h3>c) Residual \(e = -1.5\), \(\hat{y} = 10.3\). Find actual \(y\)</h3>
+    <div class="step">
+      \[
+      e = y - \hat{y} \Rightarrow y = \hat{y} + e = 10.3 + (-1.5) = 8.8
+      \]
+    </div>
+    <p><strong>Answer:</strong> <span class="boxed">8.8</span></p>
+  </div>
+
+  <!-- ==================== QUESTION 2 ==================== -->
+  <div class="question">
+    <h2>Question 2: Logistic Regression (14 pts)</h2>
+    <p><strong>Model:</strong></p>
+    <p class="latex">\[\text{logit}(P(Y=1)) = -1.8 + 0.7X_1 - 1.2X_2\]</p>
+
+    <h3>a) Compute \(P(Y=1)\) when \(X_1 = 3\), \(X_2 = 1\)</h3>
+    <div class="step">
+      \[
+      \text{logit} = -1.8 + 0.7(3) - 1.2(1) = -1.8 + 2.1 - 1.2 = -0.9
+      \]
+      \[
+      P(Y=1) = \frac{1}{1 + e^{0.9}}
+      \]
+      \[
+      e^{0.9} \approx 2.4596 \quad \Rightarrow \quad P = \frac{1}{1 + 2.4596} \approx \frac{1}{3.4596} \approx 0.289
+      \]
+    </div>
+    <p><strong>Answer:</strong> <span class="boxed">0.289</span></p>
+
+    <h3>b) Odds of \(Y=1\)</h3>
+    <div class="step">
+      \[
+      \text{Odds} = \frac{P}{1-P} = \frac{0.289}{1-0.289} = \frac{0.289}{0.711} \approx 0.406
+      \]
+    </div>
+    <p><strong>Answer:</strong> <span class="boxed">0.406</span></p>
+
+    <h3>c) Factor change in odds when \(X_1 \uparrow 1\)</h3>
+    <div class="step">
+      Coefficient of \(X_1\) = 0.7 → odds multiplier = \(e^{0.7}\)
+      \[
+      e^{0.7} \approx 2.0138
+      \]
+    </div>
+    <p><strong>Answer:</strong> <span class="boxed">2.014</span></p>
+  </div>
+
+  <!-- ==================== QUESTION 3 ==================== -->
+  <div class="question">
+    <h2>Question 3: Lasso vs OLS (10 pts)</h2>
+    <table>
+      <tr><th>Predictor</th><th>OLS Coef</th><th>Lasso Coef</th></tr>
+      <tr><td>\(X_1\)</td><td>0.45</td><td>0.42</td></tr>
+      <tr><td>\(X_2\)</td><td>0.03</td><td>0.00</td></tr>
+      <tr><td>\(X_3\)</td><td>−0.71</td><td>−0.68</td></tr>
+    </table>
+
+    <h3>a) Variable shrunk to zero</h3>
+    <p>\(X_2\) coefficient went from 0.03 → 0.00</p>
+    <p><strong>Answer:</strong> <span class="boxed">X_2</span></p>
+
+    <h3>b) Total L1 penalty (\(\lambda = 0.1\))</h3>
+    <div class="step">
+      \[
+      \sum |\beta_j| = |0.42| + |0.00| + |-0.68| = 1.10
+      \]
+      \[
+      \text{Penalty} = 0.1 \times 1.10 = 0.11
+      \]
+    </div>
+    <p><strong>Answer:</strong> <span class="boxed">0.11</span></p>
+  </div>
+
+  <!-- ==================== QUESTION 4 ==================== -->
+  <div class="question">
+    <h2>Question 4: K-Nearest Neighbors (12 pts)</h2>
+    <table>
+      <tr><th>Point</th><th>Class</th><th>Distance</th></tr>
+      <tr><td>A</td><td>Red</td><td>1.0</td></tr>
+      <tr><td>B</td><td>Blue</td><td>1.5</td></tr>
+      <tr><td>C</td><td>Red</td><td>2.0</td></tr>
+      <tr><td>D</td><td>Blue</td><td>2.5</td></tr>
+      <tr><td>E</td><td>Red</td><td>3.0</td></tr>
+    </table>
+
+    <h3>a) 3 Nearest Neighbors</h3>
+    <p>Sort by distance: A (1.0), B (1.5), C (2.0)</p>
+    <p><strong>Neighbors:</strong> A (Red), B (Blue), C (Red)</p>
+
+    <h3>b) Majority vote</h3>
+    <div class="step">
+      Red: 2 votes<br>
+      Blue: 1 vote<br>
+      → <strong>Majority = Red</strong>
+    </div>
+    <p><strong>Answer:</strong> <span class="boxed">Red</span></p>
+  </div>
+
+  <!-- ==================== QUESTION 5 ==================== -->
+  <div class="question">
+    <h2>Question 5: K-Means Clustering (14 pts)</h2>
+    <p><strong>Centroids:</strong> C1 = (2, 3), C2 = (8, 7)<br>
+    <strong>New point:</strong> P = (5, 4)</p>
+
+    <h3>a) Euclidean distances</h3>
+    <div class="step">
+      To C1:
+      \[
+      d_1 = \sqrt{(5-2)^2 + (4-3)^2} = \sqrt{9 + 1} = \sqrt{10} \approx 3.162
+      \]
+      To C2:
+      \[
+      d_2 = \sqrt{(5-8)^2 + (4-7)^2} = \sqrt{9 + 9} = \sqrt{18} \approx 4.243
+      \]
+    </div>
+
+    <h3>b) Assign to closer cluster</h3>
+    <p>3.162 < 4.243 → Assign to <strong>Cluster 1</strong></p>
+    <p><strong>Answer:</strong> <span class="boxed">Cluster 1</span></p>
+
+    <h3>c) Update centroid of Cluster 1</h3>
+    <p>Points: (2,3), (1,4), (5,4)</p>
+    <div class="step">
+      \[
+      x = \frac{2+1+5}{3} = \frac{8}{3} \approx 2.667, \quad
+      y = \frac{3+4+4}{3} = \frac{11}{3} \approx 3.667
+      \]
+    </div>
+    <p><strong>Answer:</strong> <span class="boxed">(2.67, 3.67)</span></p>
+  </div>
+
+  <!-- ==================== QUESTION 6 ==================== -->
+  <div class="question">
+    <h2>Question 6: Hierarchical Clustering (10 pts)</h2>
+    <p><strong>Single linkage distances:</strong></p>
+    <table>
+      <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+      <tr><td><strong>A</strong></td><td>–</td><td>2</td><td>5</td></tr>
+      <tr><td><strong>B</strong></td><td>2</td><td>–</td><td>3</td></tr>
+      <tr><td><strong>C</strong></td><td>5</td><td>3</td><td>–</td></tr>
+    </table>
+
+    <h3>a) First merge</h3>
+    <p>Smallest distance = 2 → A and B merge</p>
+    <p><strong>Answer:</strong> <span class="boxed">A and B at distance 2</span></p>
+
+    <h3>b) New cluster (AB) to C</h3>
+    <div class="step">
+      Single linkage: min(distance to A, distance to B) = min(5, 3) = 3
+    </div>
+    <p><strong>Answer:</strong> <span class="boxed">3</span></p>
+  </div>
+
+  <!-- ==================== QUESTION 7 ==================== -->
+  <div class="question">
+    <h2>Question 7: CART – Gini Impurity (12 pts)</h2>
+    <p>Parent: 60 Class 0, 40 Class 1 (Total = 100)</p>
+
+    <h3>a) Parent Gini</h3>
+    <div class="step">
+      \[
+      p = \frac{40}{100} = 0.4, \quad \text{Gini} = 2(0.4)(0.6) = 0.48
+      \]
+    </div>
+    <p><strong>Answer:</strong> <span class="boxed">0.48</span></p>
+
+    <h3>b) Weighted Gini after split</h3>
+    <p>Left: 50 Class 0, 10 Class 1 → \(p_L = 10/60 \approx 0.1667\)<br>
+    Right: 10 Class 0, 30 Class 1 → \(p_R = 30/40 = 0.75\)</p>
+    <div class="step">
+      \[
+      \text{Gini}_L = 2(0.1667)(0.8333) \approx 0.2778
+      \]
+      \[
+      \text{Gini}_R = 2(0.75)(0.25) = 0.375
+      \]
+      \[
+      \text{Weighted} = \frac{60}{100}(0.2778) + \frac{40}{100}(0.375) = 0.1667 + 0.15 = 0.3167
+      \]
+    </div>
+    <p><strong>Answer:</strong> <span class="boxed">0.317</span></p>
+  </div>
+
+  <!-- ==================== QUESTION 8 ==================== -->
+  <div class="question">
+    <h2>Question 8: SVM (10 pts)</h2>
+    <p>\(w = (1, -1)\), \(b = -3\)<br>
+    Decision: \(w_1 x_1 + w_2 x_2 + b = 0\)</p>
+
+    <h3>a) Classify (3, 3)</h3>
+    <div class="step">
+      \[
+      f(3,3) = 1(3) + (-1)(3) - 3 = 3 - 3 - 3 = -3
+      \]
+    </div>
+
+    <h3>b) Predicted label</h3>
+    <p>\(f < 0\) → Class <strong>−1</strong></p>
+    <p><strong>Answer:</strong> <span class="boxed">−1</span></p>
+  </div>
+
+  <!-- ==================== QUESTION 9 ==================== -->
+  <div class="question">
+    <h2>Question 9: Neural Network – Forward Pass (16 pts)</h2>
+    <p>Inputs: \(x_1 = 2\), \(x_2 = -1\)<br>
+    Weights: \(w_1 = 0.5\), \(w_2 = -1.2\)<br>
+    Bias: \(b = 0.3\)<br>
+    Activation: ReLU</p>
+
+    <h3>a) Pre-activation \(z\)</h3>
+    <div class="step">
+      \[
+      z = 0.5(2) + (-1.2)(-1) + 0.3 = 1.0 + 1.2 + 0.3 = 2.5
+      \]
+    </div>
+    <p><strong>Answer:</strong> <span class="boxed">2.5</span></p>
+
+    <h3>b) After ReLU</h3>
+    <div class="step">
+      \[
+      \text{ReLU}(2.5) = \max(0, 2.5) = 2.5
+      \]
+    </div>
+    <p><strong>Answer:</strong> <span class="boxed">2.5</span></p>
+
+    <h3>c) Final probability \(P(Y=1)\)</h3>
+    <p>Output neuron: \(w_o = 1.5\), \(b_o = -0.5\)</p>
+    <div class="step">
+      \[
+      z_o = 1.5(2.5) - 0.5 = 3.75 - 0.5 = 3.25
+      \]
+      \[
+      P(Y=1) = \frac{1}{1 + e^{-3.25}} = \frac{e^{3.25}}{1 + e^{3.25}} \approx 0.963
+      \]
+    </div>
+    <p><strong>Answer:</strong> <span class="boxed">0.963</span></p>
+  </div>
+
+  <div class="end">End of Solutions</div>
+
+
+
+</body>
+</html>
