@@ -4,14 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Introductory Data Mining Exam + Solutions</title>
-
   <!-- KaTeX for Math Rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});">
   </script>
-
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -97,10 +95,46 @@
     #solutions { display: none; margin-top: 40px; }
     #solutions.show { display: block; }
     .katex { font-size: 1.1em; }
+    .nn-diagram {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .nn-node {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #4361ee;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin: 0 40px;
+      position: relative;
+    }
+    .nn-edge {
+      position: absolute;
+      top: 50%;
+      left: -80px;
+      width: 80px;
+      height: 2px;
+      background-color: #333;
+    }
+    .nn-label {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: white;
+      padding: 2px 6px;
+      font-size: 0.9em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body>
-
   <h1>Introductory Data Mining Exam</h1>
   <div class="header-info">
     <strong>All Computational Questions</strong><br>
@@ -110,20 +144,37 @@
 
   <!-- ==================== QUESTION 1 ==================== -->
   <div class="question">
-    <h2>Question 1: Multiple Linear Regression (12 pts)</h2>
-    <p>Model: $$\hat{y} = 3.2 + 1.4X_1 - 0.9X_2 + 0.6X_3$$</p>
-    <p><strong>a)</strong> (4 pts) Predict $\hat{y}$ when $X_1 = 2$, $X_2 = 1$, $X_3 = 0$.</p>
-    <p><strong>b)</strong> (4 pts) Interpret the coefficient of $X_2$.</p>
-    <p><strong>c)</strong> (4 pts) Residual $e = -1.5$, $\hat{y} = 10.3$. Find actual $y$.</p>
+    <h2>Question 1: RMSE Calculation (12 pts)</h2>
+    <p>Using the model $$\hat{y} = 3.2 + 1.4X_1 - 0.9X_2 + 0.6X_3$$, compute the <strong>RMSE</strong> for the following new points:</p>
+    <table>
+      <tr><th>$X_1$</th><th>$X_2$</th><th>$X_3$</th><th>$y$ (actual)</th></tr>
+      <tr><td>2</td><td>6</td><td>0</td><td>1</td></tr>
+      <tr><td>3</td><td>5</td><td>2</td><td>4</td></tr>
+      <tr><td>0</td><td>3</td><td>0</td><td>0.3</td></tr>
+    </table>
+    <p><strong>a)</strong> (6 pts) Fill in the table below with $\hat{y}$ and $(y - \hat{y})^2$.</p>
+    <p><strong>b)</strong> (6 pts) Compute the <strong>RMSE</strong> and box your answer.</p>
+    <!-- Table for predictions and squared errors -->
+    <table style="margin-top: 15px;">
+      <tr><th>$X_1$</th><th>$X_2$</th><th>$X_3$</th><th>$y$</th><th>$\hat{y}$</th><th>$(y - \hat{y})^2$</th></tr>
+      <tr><td>2</td><td>6</td><td>0</td><td>1</td><td>?</td><td>?</td></tr>
+      <tr><td>3</td><td>5</td><td>2</td><td>4</td><td>?</td><td>?</td></tr>
+      <tr><td>0</td><td>3</td><td>0</td><td>0.3</td><td>?</td><td>?</td></tr>
+      <tr><td colspan="5" style="text-align: right; font-weight: bold;">Sum =</td><td>?</td></tr>
+    </table>
+    <p style="margin-top: 15px;">
+      <strong>RMSE</strong> = $\sqrt{\frac{1}{3} \sum (y - \hat{y})^2}$ =
+      <span class="boxed">?</span>
+    </p>
   </div>
 
   <!-- ==================== QUESTION 2 ==================== -->
   <div class="question">
     <h2>Question 2: Logistic Regression (14 pts)</h2>
-    <p>Model: $$\text{logit}(P(Y=1)) = -1.8 + 0.7X_1 - 1.2X_2$$</p>
+    <p>Model: $$\log\left(\frac{P(Y=1)}{1-P(Y=1)}\right) = -1.8 + 0.7X_1 - 1.2X_2$$</p>
     <p><strong>a)</strong> (6 pts) Compute $P(Y=1)$ when $X_1 = 3$, $X_2 = 1$. Use $e \approx 2.718$.</p>
-    <p><strong>b)</strong> (4 pts) What are the <strong>odds</strong>?</p>
-    <p><strong>c)</strong> (4 pts) Odds change factor if $X_1 \uparrow 1$?</p>
+    <p><strong>b)</strong> (4 pts) Compute the odds $P(Y=1)/(1-P(Y=1))$.</p>
+    <p><strong>c)</strong> (4 pts) By how much do the odds multiply when $X_1$ increases by 1 (holding $X_2$ fixed)?</p>
   </div>
 
   <!-- ==================== QUESTION 3 ==================== -->
@@ -135,74 +186,115 @@
       <tr><td>$X_2$</td><td>0.03</td><td>0.00</td></tr>
       <tr><td>$X_3$</td><td>−0.71</td><td>−0.68</td></tr>
     </table>
-    <p><strong>a)</strong> (4 pts) Which variable shrunk to zero?</p>
-    <p><strong>b)</strong> (6 pts) L1 penalty if $\lambda = 0.1$.</p>
+    <p><strong>a)</strong> (4 pts) Which variable was shrunk to zero by Lasso?</p>
+    <p><strong>b)</strong> (6 pts) The Lasso objective adds $\lambda \sum | \beta_j |$. With $\lambda = 0.1$, compute the $L_1$ penalty term using the <em>Lasso</em> coefficients.</p>
   </div>
 
   <!-- ==================== QUESTION 4 ==================== -->
   <div class="question">
     <h2>Question 4: K-Nearest Neighbors (12 pts)</h2>
+    <p>The following 5 points are given with their coordinates and class labels:</p>
     <table>
-      <tr><th>Point</th><th>Class</th><th>Distance</th></tr>
-      <tr><td>A</td><td>Red</td><td>1.0</td></tr>
-      <tr><td>B</td><td>Blue</td><td>1.5</td></tr>
-      <tr><td>C</td><td>Red</td><td>2.0</td></tr>
-      <tr><td>D</td><td>Blue</td><td>2.5</td></tr>
-      <tr><td>E</td><td>Red</td><td>3.0</td></tr>
+      <tr><th>Point</th><th>$X_1$</th><th>$X_2$</th><th>Class</th></tr>
+      <tr><td>A</td><td>1</td><td>1</td><td>Red</td></tr>
+      <tr><td>B</td><td>2</td><td>1</td><td>Blue</td></tr>
+      <tr><td>C</td><td>5</td><td>5</td><td>Red</td></tr>
+      <tr><td>D</td><td>6</td><td>5</td><td>Blue</td></tr>
+      <tr><td>E</td><td>3</td><td>3</td><td>Red</td></tr>
     </table>
-    <p><strong>a)</strong> (6 pts) List 3 nearest neighbors.</p>
-    <p><strong>b)</strong> (6 pts) Predict class (majority vote).</p>
+    <p>A <strong>new point</strong> is observed at: <strong>$P = (3, 3)$</strong>.</p>
+    <p><strong>a)</strong> (6 pts) Compute the <strong>Euclidean distance</strong> from $P$ to each of the 5 points.
+    Then, list the <strong>3 nearest neighbors</strong> (in order of increasing distance).</p>
+    <p><strong>b)</strong> (6 pts) Using <strong>$k=3$</strong> and <strong>majority vote</strong>, predict the class of point $P$.
+    Box your final answer.</p>
+    <!-- Optional: Space for student work -->
+    <p style="margin-top: 15px; font-style: italic;">
+      Show your distance calculations below:
+    </p>
+    <table style="margin-top: 10px; width: 80%;">
+      <tr><th>Point</th><th>Distance to $P$</th></tr>
+      <tr><td>A</td><td>?</td></tr>
+      <tr><td>B</td><td>?</td></tr>
+      <tr><td>C</td><td>?</td></tr>
+      <tr><td>D</td><td>?</td></tr>
+      <tr><td>E</td><td>?</td></tr>
+    </table>
+    <p style="margin-top: 20px;">
+      <strong>Predicted class of $P$:</strong>
+      <span class="boxed">?</span>
+    </p>
   </div>
 
   <!-- ==================== QUESTION 5 ==================== -->
   <div class="question">
     <h2>Question 5: K-Means Clustering (14 pts)</h2>
-    <p>Centroids: C1 = (2, 3), C2 = (8, 7)<br>New point: P = (5, 4)</p>
-    <p><strong>a)</strong> (6 pts) Euclidean distance to each.</p>
-    <p><strong>b)</strong> (4 pts) Assign to closer cluster.</p>
-    <p><strong>c)</strong> (4 pts) Update C1 centroid with points: (2,3), (1,4), (5,4).</p>
+    <p>Assume $K=2$. At a certain iteration, cluster 1 has 25 observations with centroid at (2, 3) and
+      cluster 2 has 20 observations with centroid at (8, 7).<br>New point: P = (5, 4)</p>
+    <p><strong>a)</strong> (6 pts) Find the Euclidean distance from the new point to each centroid.</p>
+    <p><strong>b)</strong> (4 pts) Assign the new point to the closer cluster.</p>
+    <p><strong>c)</strong> (4 pts) After assigning P, can you compute the <em>new</em> centroids? If yes, give the coordinates (rounded to two decimals). If not, explain why.</p>
   </div>
 
   <!-- ==================== QUESTION 6 ==================== -->
   <div class="question">
     <h2>Question 6: Hierarchical Clustering (10 pts)</h2>
+    <p>The table below shows the <strong>pairwise Euclidean distances</strong> between points A, B, and C:</p>
     <table>
       <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
       <tr><td><strong>A</strong></td><td>–</td><td>2</td><td>5</td></tr>
       <tr><td><strong>B</strong></td><td>2</td><td>–</td><td>3</td></tr>
       <tr><td><strong>C</strong></td><td>5</td><td>3</td><td>–</td></tr>
     </table>
-    <p><strong>a)</strong> (6 pts) First merge?</p>
-    <p><strong>b)</strong> (4 pts) New cluster to remaining (single linkage).</p>
+    <p><strong>a)</strong> (6 pts) Using <strong>single linkage</strong>, which two points are merged first?</p>
+    <p><strong>b)</strong> (4 pts) After the first merge, what is the single-linkage distance between the new cluster and the remaining point?</p>
   </div>
 
   <!-- ==================== QUESTION 7 ==================== -->
   <div class="question">
-    <h2>Question 7: CART – Gini Impurity (12 pts)</h2>
-    <p>Parent: 60 Class 0, 40 Class 1</p>
-    <p><strong>a)</strong> (4 pts) Parent Gini.</p>
-    <p><strong>b)</strong> (8 pts) Weighted Gini after split:<br>
-    Left: 50-0, 10-1<br>Right: 10-0, 30-1</p>
+    <h2>Question 7: Classification Tree – Entropy (12 pts)</h2>
+    <p>Parent node: 60 Class 0, 40 Class 1 (total 100).</p>
+    <p><strong>a)</strong> (4 pts) Compute the entropy of the parent node. Use natural logarithm (base $e$). Round to three decimals.</p>
+    <p><strong>b)</strong> (8 pts) A split produces:<br>
+    Left child: 50 Class 0, 10 Class 1<br>Right child: 10 Class 0, 30 Class 1<br>
+    Compute the <em>weighted</em> entropy of the children (round to three decimals).</p>
   </div>
 
   <!-- ==================== QUESTION 8 ==================== -->
   <div class="question">
     <h2>Question 8: SVM (10 pts)</h2>
-    <p>$w = (1, -1)$, $b = -3$</p>
-    <p><strong>a)</strong> (6 pts) Decision value at (3,3).</p>
-    <p><strong>b)</strong> (4 pts) Predicted label.</p>
+    <p>Hyperplane: $w = (1, -1)$, $b = -3$. Decision function $f(x) = w \cdot x + b$.</p>
+    <p><strong>a)</strong> (6 pts) Compute $f(3,3)$.</p>
+    <p><strong>b)</strong> (4 pts) Predict the label (sign of $f$).</p>
   </div>
 
   <!-- ==================== QUESTION 9 ==================== -->
   <div class="question">
     <h2>Question 9: Neural Network – Forward Pass (16 pts)</h2>
-    <p>Inputs: $x_1=2$, $x_2=-1$<br>
-    Weights: $w_1=0.5$, $w_2=-1.2$<br>
-    Bias: $b=0.3$<br>
-    Activation: ReLU</p>
-    <p><strong>a)</strong> (6 pts) Pre-activation $z$.</p>
-    <p><strong>b)</strong> (4 pts) ReLU output.</p>
-    <p><strong>c)</strong> (6 pts) Sigmoid output: $w_o=1.5$, $b_o=-0.5$ → $P(Y=1)$.</p>
+    <p>We train a neural network with two inputs $x_1=2$, $x_2=-1$ and a binary output ($Y=0$ or $Y=1$). The architecture has:</p>
+    <ul>
+      <li><strong>One hidden layer</strong> with <strong>one node</strong> (ReLU activation)</li>
+      <li><strong>Two output nodes</strong>: one for $Y=1$, one for $Y=0$</li>
+      <li>Final probabilities are obtained via <strong>softmax</strong> to ensure they sum to 1.</li>
+    </ul>
+    <p>Weights and biases:</p>
+    <table>
+      <tr><th>From</th><th>To</th><th>Weight</th><th>Bias (at target)</th></tr>
+      <tr><td>$x_1$</td><td>Hidden</td><td>$w_1 = 0.5$</td><td rowspan="2">$b_h = 0.3$</td></tr>
+      <tr><td>$x_2$</td><td>Hidden</td><td>$w_2 = -1.2$</td></tr>
+      <tr><td>Hidden</td><td>$Y=1$ node</td><td>$w_{o1} = 1.5$</td><td rowspan="2">$b_o = 0.0$</td></tr>
+      <tr><td>Hidden</td><td>$Y=0$ node</td><td>$w_{o0} = 0.8$</td></tr>
+    </table>
+
+    <p><strong>Draw the neural network below with all weights and biases clearly labeled. Include input nodes, one hidden node (ReLU), and two output nodes (softmax). Show arrows and label each connection with its weight, and each node with its bias (if any).</strong></p>
+
+    <div style="border: 2px dashed #4361ee; padding: 40px; margin: 25px 0; min-height: 250px; text-align: center; font-style: italic; color: #555;">
+      [Draw your neural network diagram here]
+    </div>
+
+    <p><strong>a)</strong> (4 pts) Compute the pre-activation $z_h$ at the hidden node.</p>
+    <p><strong>b)</strong> (3 pts) Compute the hidden node output after ReLU.</p>
+    <p><strong>c)</strong> (4 pts) Compute the pre-softmax values $a_1$ and $a_0$ at the two output nodes.</p>
+    <p><strong>d)</strong> (5 pts) Apply <strong>softmax</strong> to get $P(Y=1)$ and $P(Y=0)$. Round to three decimals and box both.</p>
   </div>
 
   <div class="end">End of Exam</div>
@@ -218,69 +310,124 @@
 
     <!-- Q1 -->
     <div class="question">
-      <h2>Q1</h2>
-      <p><strong>a)</strong> $$\hat{y} = 3.2 + 1.4(2) - 0.9(1) + 0.6(0) = 5.1$$ <span class="boxed">5.1</span></p>
-      <p><strong>b)</strong> $X_2 \uparrow 1 \Rightarrow \hat{y} \downarrow 0.9$</p>
-      <p><strong>c)</strong> $$y = 10.3 - 1.5 = 8.8$$ <span class="boxed">8.8</span></p>
+      <h2>Question 1: RMSE Calculation</h2>
+      <p><strong>a)</strong></p>
+      <table>
+        <tr><th>$X_1$</th><th>$X_2$</th><th>$X_3$</th><th>$y$</th><th>$\hat{y}$</th><th>$(y - \hat{y})^2$</th></tr>
+        <tr><td>2</td><td>6</td><td>0</td><td>1</td><td>3.0</td><td>4</td></tr>
+        <tr><td>3</td><td>5</td><td>2</td><td>4</td><td>4.9</td><td>0.01</td></tr>
+        <tr><td>0</td><td>3</td><td>0</td><td>0.3</td><td>0.5</td><td>0.04</td></tr>
+        <tr><td colspan="5" style="text-align: right; font-weight: bold;">Sum =</td><td>4.05</td></tr>
+      </table>
+      <p><strong>b)</strong> $$\text{RMSE}=\sqrt{\frac{4.05}{3}}\approx 1.16$$ <span class="boxed">1.16</span></p>
     </div>
 
     <!-- Q2 -->
     <div class="question">
-      <h2>Q2</h2>
-      <p><strong>a)</strong> $$\text{logit} = -0.9 \Rightarrow P = \frac{1}{1+e^{0.9}} \approx 0.289$$ <span class="boxed">0.289</span></p>
-      <p><strong>b)</strong> $$\text{Odds} = \frac{0.289}{0.711} \approx 0.406$$ <span class="boxed">0.406</span></p>
-      <p><strong>c)</strong> $$e^{0.7} \approx 2.014$$ <span class="boxed">2.014</span></p>
+      <h2>Question 2: Logistic Regression</h2>
+      <p>logit = −0.9</p>
+      <p><strong>a)</strong> $$P\approx 0.289$$ <span class="boxed">0.289</span></p>
+      <p><strong>b)</strong> $$\text{Odds}\approx 0.406$$ <span class="boxed">0.406</span></p>
+      <p><strong>c)</strong> $$e^{0.7}\approx 2.014$$ <span class="boxed">2.014</span></p>
     </div>
 
     <!-- Q3 -->
     <div class="question">
-      <h2>Q3</h2>
-      <p><strong>a)</strong> <span class="boxed">$X_2$</span></p>
-      <p><strong>b)</strong> $$0.1 \times (0.42 + 0 + 0.68) = 0.11$$ <span class="boxed">0.11</span></p>
+      <h2>Question 3: Lasso vs OLS</h2>
+      <p><strong>a)</strong> $X_2$ <span class="boxed">$X_2$</span></p>
+      <p><strong>b)</strong> $$0.1 \times 1.10 = 0.11$$ <span class="boxed">0.11</span></p>
     </div>
 
     <!-- Q4 -->
     <div class="question">
-      <h2>Q4</h2>
-      <p><strong>a)</strong> A (Red), B (Blue), C (Red)</p>
-      <p><strong>b)</strong> 2 Red → <span class="boxed">Red</span></p>
+      <h2>Question 4: K-Nearest Neighbors</h2>
+      <p><strong>a)</strong> E (0), B (≈2.236), A/C (≈2.828)</p>
+      <p><strong>b)</strong> Red <span class="boxed">Red</span></p>
     </div>
 
     <!-- Q5 -->
     <div class="question">
-      <h2>Q5</h2>
-      <p><strong>a)</strong> $\sqrt{10} \approx 3.162$, $\sqrt{18} \approx 4.243$</p>
-      <p><strong>b)</strong> <span class="boxed">Cluster 1</span></p>
-      <p><strong>c)</strong> $$\left( \frac{8}{3}, \frac{11}{3} \right) \approx (2.67, 3.67)$$ <span class="boxed">(2.67, 3.67)</span></p>
+      <h2>Question 5: K-Means Clustering</h2>
+      <p><strong>a)</strong> $d_1\approx3.162$, $d_2\approx4.243$</p>
+      <p><strong>b)</strong> Cluster 1 <span class="boxed">Cluster 1</span></p>
+      <p><strong>c)</strong> $(2.12, 3.04)$ <span class="boxed">(2.12, 3.04)</span></p>
     </div>
 
     <!-- Q6 -->
     <div class="question">
-      <h2>Q6</h2>
-      <p><strong>a)</strong> A and B at distance 2 <span class="boxed">2</span></p>
-      <p><strong>b)</strong> min(5,3) = <span class="boxed">3</span></p>
+      <h2>Question 6: Hierarchical Clustering</h2>
+      <p><strong>a)</strong> A and B <span class="boxed">A and B</span></p>
+      <p><strong>b)</strong> 3 <span class="boxed">3</span></p>
     </div>
 
     <!-- Q7 -->
     <div class="question">
-      <h2>Q7</h2>
-      <p><strong>a)</strong> $$2(0.4)(0.6) = 0.48$$ <span class="boxed">0.48</span></p>
-      <p><strong>b)</strong> Gini$_L \approx 0.278$, Gini$_R = 0.375$ → Weighted $\approx 0.317$ <span class="boxed">0.317</span></p>
+      <h2>Question 7: Classification Tree – Entropy (Base $e$)</h2>
+      <p><strong>a)</strong> $$H = -0.6 \ln 0.6 - 0.4 \ln 0.4 \approx 0.673$$ <span class="boxed">0.673</span></p>
+      <p><strong>b)</strong> Left: $H_L \approx 0.451$, Right: $H_R \approx 0.562$, Weighted: $0.497$ <span class="boxed">0.497</span></p>
     </div>
 
     <!-- Q8 -->
     <div class="question">
-      <h2>Q8</h2>
-      <p><strong>a)</strong> $$f(3,3) = -3$$</p>
-      <p><strong>b)</strong> $f < 0 \Rightarrow$ <span class="boxed">−1</span></p>
+      <h2>Question 8: SVM</h2>
+      <p><strong>a)</strong> $f(3,3) = -3$ <span class="boxed">-3</span></p>
+      <p><strong>b)</strong> $-1$ <span class="boxed">-1</span></p>
     </div>
 
     <!-- Q9 -->
     <div class="question">
-      <h2>Q9</h2>
-      <p><strong>a)</strong> $$z = 2.5$$ <span class="boxed">2.5</span></p>
-      <p><strong>b)</strong> ReLU(2.5) = <span class="boxed">2.5</span></p>
-      <p><strong>c)</strong> $$P = \frac{e^{3.25}}{1+e^{3.25}} \approx 0.963$$ <span class="boxed">0.963</span></p>
+      <h2>Question 9: Neural Network – Forward Pass (Softmax Output)</h2>
+
+      <p><strong>Neural Network Diagram (for reference):</strong></p>
+      <div class="nn-diagram">
+        <div style="display: flex; align-items: center; position: relative;">
+          <!-- Input Layer -->
+          <div style="display: flex; flex-direction: column; align-items: center; margin-right: 80px;">
+            <div class="nn-node">x₁<br>=2</div>
+            <div class="nn-node" style="margin-top: 40px;">x₂<br>=−1</div>
+          </div>
+
+          <!-- Hidden Layer -->
+          <div style="display: flex; flex-direction: column; align-items: center; margin: 0 80px;">
+            <div class="nn-node">h</div>
+            <div style="margin-top: 30px; font-size: 0.9em;">ReLU</div>
+          </div>
+
+          <!-- Output Layer -->
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <div class="nn-node">Y=1</div>
+            <div class="nn-node" style="margin-top: 40px;">Y=0</div>
+            <div style="margin-top: 50px; font-size: 0.9em;">softmax</</div>
+          </div>
+
+          <!-- Edges to hidden -->
+          <div class="nn-edge" style="top: 25px; left: 80px;"><div class="nn-label">w₁=0.5</div></div>
+          <div class="nn-edge" style="top: 105px; left: 80px;"><div class="nn-label">w₂=−1.2</div></div>
+
+          <!-- Bias to hidden -->
+          <div style="position: absolute; top: 65px; left: 170px; font-size: 0.9em; color: #d32f2f;">+ bₕ = 0.3</div>
+
+          <!-- Hidden to Y=1 -->
+          <div class="nn-edge" style="top: 25px; left: 340px; width: 100px;"><div class="nn-label">wₒ₁=1.5</div></div>
+          <!-- Hidden to Y=0 -->
+          <div class="nn-edge" style="top: 105px; left: 340px; width: 100px;"><div class="nn-label">wₒ₀=0.8</div></div>
+
+          <!-- Shared bias -->
+          <div style="position: absolute; top: 65px; left: 450px; font-size: 0.9em; color: #d32f2f;">+ bₒ = 0.0</div>
+        </div>
+      </div>
+
+      <p><strong>a)</strong> $z_h = 0.5·2 + (-1.2)·(-1) + 0.3 = 2.5$ <span class="boxed">2.5</span></p>
+      <p><strong>b)</strong> ReLU(2.5) = 2.5 <span class="boxed">2.5</span></p>
+      <p><strong>c)</strong><br>
+      $a_1 = 1.5·2.5 + 0.0 = 3.75$<br>
+      $a_0 = 0.8·2.5 + 0.0 = 2.0$</p>
+      <p><strong>d)</strong><br>
+      $e^{3.75} \approx 42.52$, $e^{2.0} \approx 7.39$<br>
+      Sum = 42.52 + 7.39 = 49.91<br>
+      $P(Y=1) = 42.52 / 49.91 \approx 0.852$<br>
+      $P(Y=0) = 7.39 / 49.91 \approx 0.148$</p>
+      <span class="boxed">P(Y=1) = 0.852, &nbsp; P(Y=0) = 0.148</span>
     </div>
 
     <div class="end" style="color: #d32f2f;">End of Solutions</div>
@@ -294,6 +441,5 @@
       btn.textContent = sol.classList.contains("show") ? "Hide Solutions" : "Show Complete Solutions";
     }
   </script>
-
 </body>
 </html>
